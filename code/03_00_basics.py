@@ -5,7 +5,7 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = '/Users/nathan/baseball-book/data'
+DATA_DIR = '../data'
 
 ##############
 # Loading data
@@ -56,7 +56,7 @@ players.head()  # now playerID is index
 
 # alternate to using inplace, reassign players
 players = pd.read_csv(
-    path.join(DATA_DIR, '2018-season', 'players.csv')) # players data
+    path.join(DATA_DIR, '2018-season', 'players.csv'))  # players data
 players = players.set_index('playerID')
 
 players.reset_index().head()
@@ -86,4 +86,3 @@ players_cuba.to_csv(
 
 players_cuba.to_csv(
     path.join(DATA_DIR, '2018-season', 'players_cuba_no_index.csv'), index=False)
-
