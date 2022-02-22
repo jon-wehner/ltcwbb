@@ -5,7 +5,7 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = '../data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 
 ##############
 # Loading data
