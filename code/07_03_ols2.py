@@ -4,8 +4,8 @@ import numpy as np
 from os import path
 import statsmodels.formula.api as smf
 
-DATA100 = '/Users/nathan/baseball-book/data/100-game-sample/'
-DATA18 = '/Users/nathan/baseball-book/data/2018-season/'
+DATA100 = '/home/jon/personal-projects/ltcwbb/data100-game-sample/'
+DATA18 = '/home/jon/personal-projects/ltcwbb/data2018-season/'
 
 dfp = pd.read_csv(path.join(DATA100, 'pitches_w_inplay_nb.csv'))
 dfb = pd.read_csv(path.join(DATA100, 'atbats.csv'))
@@ -20,8 +20,8 @@ dft = pd.read_csv(path.join(DATA18, 'teams.csv'))
 dfti = (dfb
         .groupby(['g_id', 'inning', 'pitcher_team'])
         .agg(
-            runs_start = ('b_score_start', 'min'),
-            runs_end = ('b_score_end', 'max'))
+            runs_start=('b_score_start', 'min'),
+            runs_end=('b_score_end', 'max'))
         .reset_index())
 
 dfti.head()
@@ -60,7 +60,8 @@ model = smf.ols(formula="runs ~ C(hit_cat) + out", data=dfb)
 results = model.fit()
 results.summary2()
 
-model = smf.ols(formula="runs ~ C(hit_cat, Treatment(reference='Not a hit')) + out", data=dfb)
+model = smf.ols(
+    formula="runs ~ C(hit_cat, Treatment(reference='Not a hit')) + out", data=dfb)
 results = model.fit()
 results.summary2()
 
@@ -104,14 +105,16 @@ results.summary2()
 # logit
 #######
 model = smf.logit(formula="inplay ~ spin_k + spin_k:is_curveball",
-                data=dfp.query("pitch_type not in ('EP', 'PO', 'FO')"))
+                  data=dfp.query("pitch_type not in ('EP', 'PO', 'FO')"))
 logit_results = model.fit()
 logit_results.summary2()
+
 
 def prob_inplay_logit(spin_k, is_curveball):
     b0, b1, b2 = logit_results.params
     value = (b0 + b1*spin_k + b2*is_curveball*spin_k)
     return 1/(1 + math.exp(-value))
+
 
 prob_inplay_logit(2, 0)
 prob_inplay_logit(2, 1)

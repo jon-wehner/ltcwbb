@@ -3,7 +3,7 @@ import statsmodels.formula.api as smf
 from os import path
 
 # change this to your data directory
-DATA100 = '/Users/nathan/baseball-book/data/100-game-sample/'
+DATA100 = '/home/jon/personal-projects/ltcwbb/data100-game-sample/'
 
 # this (*_nb) is a version that i made; if you saved your own version feel free
 # to remove and use that
@@ -17,9 +17,11 @@ model = smf.ols(formula='inplay ~ mph + mph2', data=dfp)
 results = model.fit()
 results.summary2()
 
+
 def prob_inplay(mph):
     b0, b1, b2 = results.params
     return (b0 + b1*mph + b2*(mph**2))
+
 
 prob_inplay(85)
 prob_inplay(90)

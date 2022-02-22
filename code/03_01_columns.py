@@ -1,3 +1,4 @@
+import numpy as np  # note: normally you'd import this at the top of the file
 import pandas as pd
 from os import path
 
@@ -5,7 +6,7 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = '/Users/nathan/baseball-book/data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 
 # load data
 pp = pd.read_csv(path.join(DATA_DIR, '100-game-sample', 'pitches.csv'))
@@ -21,7 +22,6 @@ pp['sz_height'] = pp['sz_top'] - pp['sz_bot']
 pp[['pitcher', 'batter', 'i', 'o', 'b', 's', 'sz_top', 'sz_bot',
     'sz_height']].head()
 
-import numpy as np  # note: normally you'd import this at the top of the file
 
 pp['distance_from_middle_of_plate'] = np.abs(pp['x0'])
 
@@ -48,17 +48,21 @@ pp[['pitcher', 'pitch_type', 'is_a_FF']].sample(5)
 
 pp['is_a_FF_or_SL'] = (pp['pitch_type'] == 'FF') | (pp['pitch_type'] == 'SL')
 pp['fast_fastball'] = (pp['pitch_type'] == 'FF') & (pp['mph'] >= 100)
-pp['is_not_FF_or_SL'] = ~((pp['pitch_type'] == 'FF') | (pp['pitch_type'] == 'SL'))
+pp['is_not_FF_or_SL'] = ~((pp['pitch_type'] == 'FF')
+                          | (pp['pitch_type'] == 'SL'))
 
 (pp[['b', 's']] == 0).sample(5)
 
 # Applying functions to columns
+
+
 def is_fastball(pitch):
-  """
-  Takes some string named pitch ('CH', 'FF', 'FC' etc) and checks whether it's
-  a fastball (cutter, four-seam, two-seam, sinker, splitter)
-  """
-  return pitch in ['FC', 'FF', 'FS', 'FT', 'SI']
+    """
+    Takes some string named pitch ('CH', 'FF', 'FC' etc) and checks whether it's
+    a fastball (cutter, four-seam, two-seam, sinker, splitter)
+    """
+    return pitch in ['FC', 'FF', 'FS', 'FT', 'SI']
+
 
 pp['is_fastball'] = pp['pitch_type'].apply(is_fastball)
 

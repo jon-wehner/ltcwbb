@@ -1,7 +1,7 @@
 import pandas as pd
 from os import path
 
-DATA100 = '/Users/nathan/baseball-book/data/100-game-sample/'
+DATA100 = '/home/jon/personal-projects/ltcwbb/data/100-game-sample/'
 
 dfp = pd.read_csv(path.join(DATA100, 'pitches.csv'))
 dfb = pd.read_csv(path.join(DATA100, 'atbats.csv'))

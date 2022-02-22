@@ -5,7 +5,7 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = '/Users/nathan/baseball-book/data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 
 atbats = pd.read_csv(path.join(DATA_DIR, '100-game-sample', 'atbats.csv'))
 
@@ -21,10 +21,10 @@ atbats.groupby('g_id').agg({'hit': 'sum', 'homerun': 'sum', 'strikeout': 'sum',
                             'ab_id': 'count'}).head()
 
 atbats.groupby('g_id').agg(
-    hit = ('hit', 'sum'),
-    n_atbats = ('ab_id', 'count'),
-    strikeout = ('strikeout', 'sum'),
-    homerun = ('homerun', 'sum')).head()
+    hit=('hit', 'sum'),
+    n_atbats=('ab_id', 'count'),
+    strikeout=('strikeout', 'sum'),
+    homerun=('homerun', 'sum')).head()
 
 atbats.groupby('g_id').agg({'strikeout': ['sum', 'mean']}).head()
 

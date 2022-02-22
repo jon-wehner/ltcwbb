@@ -5,7 +5,7 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = '/Users/nathan/baseball-book/data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 
 pg = pd.read_csv(
     path.join(DATA_DIR, '100-game-sample', 'game-player.csv'))  # player-game
@@ -34,7 +34,8 @@ pd.merge(combined, games[['g_id', 'attendance', 'venue_name']]).head()
 # pd.merge(combined, games, validate='1:1')  # this will fail since it's 1:m
 
 # 3. What you do with unmatched observations
-st = pd.read_csv(path.join(DATA_DIR, '2018-season', 'teams.csv'))  # player-game
+st = pd.read_csv(path.join(DATA_DIR, '2018-season',
+                 'teams.csv'))  # player-game
 
 top_hr = (st[['teamID', 'name', 'HR']]
           .sort_values('HR', ascending=False)
@@ -79,7 +80,7 @@ max_hit_df.columns
 pd.merge(hit_df, max_hit_df, left_on='batter_id', right_index=True).sample(5)
 
 ############
-## pd.concat
+# pd.concat
 ############
 
 top_hr = (st[['teamID', 'HR']]
@@ -96,9 +97,9 @@ top_so = (st[['teamID', 'SO']]
 pd.concat([top_hr, top_so], axis=1).sort_index().head()
 
 top_bb = (st[['teamID', 'BB']]
-            .sort_values('BB', ascending=False)
-            .head(20)
-            .set_index('teamID'))
+          .sort_values('BB', ascending=False)
+          .head(20)
+          .set_index('teamID'))
 
 pd.concat([top_hr, top_so, top_bb], axis=1).sort_index().head()
 

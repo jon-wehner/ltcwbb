@@ -6,7 +6,7 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = '/Users/nathan/baseball-book/data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 
 games = pd.read_csv(path.join(DATA_DIR, '100-game-sample', 'games.csv'))
 games.set_index('g_id', inplace=True)
@@ -49,7 +49,8 @@ pp.shape
 pp.drop_duplicates(inplace=True)
 pp.shape
 
-pp.drop_duplicates('pitch_type')[['pitch_type', 'mph', 'spin_rate', 'spin_dir']]
+pp.drop_duplicates('pitch_type')[
+    ['pitch_type', 'mph', 'spin_rate', 'spin_dir']]
 
 pp.duplicated().head()
 
@@ -73,8 +74,10 @@ games.query("delay > 0").head()
 games['is_delayed'] = games['delay'] > 0
 games.query("is_delayed").head()
 
-games.query("weather.str[0] == '9'")[['home_team', 'away_team', 'weather']].head()
+games.query("weather.str[0] == '9'")[
+    ['home_team', 'away_team', 'weather']].head()
 
 # note: if getting an error on line above, try it with engine='python' like
 # this
-games.query("weather.str[0] == '9'", engine='python')[['home_team', 'away_team', 'weather']].head()
+games.query("weather.str[0] == '9'", engine='python')[
+    ['home_team', 'away_team', 'weather']].head()

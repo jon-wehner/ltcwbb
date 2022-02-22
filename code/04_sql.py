@@ -9,7 +9,7 @@ import sqlite3
 # only need to run this section once
 
 # handle directories
-DATA_DIR = '/Users/nathan/baseball-book/data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 HUNDRED_DIR = path.join(DATA_DIR, '100-game-sample')
 
 # create connection
@@ -214,7 +214,6 @@ df = pd.read_sql(
 df.head()
 
 
-
 ###########
 # LIMIT/TOP
 ###########
@@ -275,4 +274,3 @@ df = pd.read_sql(
         game.away_team = player.team AND
         player.position = 'fielder'
     """, conn)
-

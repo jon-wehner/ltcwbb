@@ -7,14 +7,13 @@ from os import path
 # stored
 # on Windows it might be something like 'C:/mydir'
 
-DATA_DIR = './data'
-
-DATA_DIR = '/Users/nathan/ltcwbb-files/data'
+DATA_DIR = '/home/jon/personal-projects/ltcwbb/data'
 
 df = pd.read_csv(path.join(DATA_DIR, '100-game-sample', 'pitches.csv'))
 
 # let's limit our data to the most common pitches
-df = df.query("pitch_type in ('FF', 'SL', 'CH', 'FT', 'CU', 'SI', 'FC', 'FS', 'KC')")
+df = df.query(
+    "pitch_type in ('FF', 'SL', 'CH', 'FT', 'CU', 'SI', 'FC', 'FS', 'KC')")
 
 ###############
 # summary stats
@@ -62,11 +61,13 @@ games = pd.read_csv(path.join(DATA_DIR, '100-game-sample', 'games.csv'))
 # book picks up again here:
 games[['home_team', 'away_team', 'home_final_score', 'away_final_score']].head()
 
+
 def home_away_df(_df, location):
     _df = _df[['date', f'{location}_team', f'{location}_final_score']]
     _df.columns = ['date', 'team', 'final_score']
     _df['location'] = location
     return _df
+
 
 home_away_df(games, 'home').head()
 
@@ -152,7 +153,7 @@ g = sns.displot(df, kind='kde', x='mph', hue='s', col='pitch_type')
 g = sns.displot(df, kind='kde', x='mph', hue='s', col='pitch_type', col_wrap=2)
 
 # adding a title
-g.fig.subplots_adjust(top=0.9) # adding a title
+g.fig.subplots_adjust(top=0.9)  # adding a title
 g.fig.suptitle('Distribution of Pitch Speeds by Type, Strikes')
 
 # modifying the axes
@@ -164,4 +165,3 @@ g.set_ylabels('Density')
 
 # saving
 g.savefig('speed_by_type_strike.png')
-
