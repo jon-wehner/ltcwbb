@@ -21,7 +21,7 @@ players.head()
 
 players.columns
 
-print(players.shape)
+players.shape
 
 #################################
 # Working with subsets of columns
